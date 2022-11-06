@@ -29,7 +29,7 @@ func main() {
 		server.ServeHTTP()
 	}()
 
-	waitForShutdownSignal(server, goCtx, cancel)
+	waitForShutdownSignal(goCtx, server, cancel)
 }
 
 func SetupConfiguration() {
@@ -40,7 +40,7 @@ func SetupConfiguration() {
 	}
 }
 
-func waitForShutdownSignal(srv *commonutils.Server, goCtx context.Context, cancel context.CancelFunc) {
+func waitForShutdownSignal(goCtx context.Context, srv *commonutils.Server, cancel context.CancelFunc) {
 	var gracefulStop = make(chan os.Signal, 3)
 
 	signal.Notify(gracefulStop, syscall.SIGTERM)
