@@ -26,7 +26,7 @@ func main() {
 	server := commonutils.NewServer()
 
 	go func() {
-		server.ServeHttp()
+		server.ServeHTTP()
 	}()
 
 	waitForShutdownSignal(server, goCtx, cancel)
@@ -41,7 +41,7 @@ func SetupConfiguration() {
 }
 
 func waitForShutdownSignal(srv *commonutils.Server, goCtx context.Context, cancel context.CancelFunc) {
-	var gracefulStop = make(chan os.Signal)
+	var gracefulStop = make(chan os.Signal, 3)
 
 	signal.Notify(gracefulStop, syscall.SIGTERM)
 	signal.Notify(gracefulStop, syscall.SIGINT)

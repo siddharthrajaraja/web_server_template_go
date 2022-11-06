@@ -24,7 +24,7 @@ func NewServer() *Server {
 	}
 }
 
-func (s *Server) ServeHttp() {
+func (s *Server) ServeHTTP() {
 	s.srv = &http.Server{
 		Handler: s.r,
 		Addr:    s.address,
@@ -51,6 +51,6 @@ func (s *Server) Shutdown(goCtx context.Context) {
 	}
 
 	if err := s.srv.Shutdown(goCtx); err != nil {
-		logrus.Fatal("Server failed to shutdown: %v", err.Error())
+		logrus.Fatalf("Server failed to shutdown: %v", err.Error())
 	}
 }
